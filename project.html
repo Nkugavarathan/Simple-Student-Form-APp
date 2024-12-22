@@ -1,0 +1,120 @@
+
+
+<html>
+    <head>
+        <style>
+            #select{
+                width:188.08px;
+            }
+            #btnsave{
+                background-color: aqua;
+                text-align: center;
+                width:246px;
+            }
+            #t2{
+                margin-top: 20px;
+            }
+            #nameinput, #ageinput, #emailinput {
+                width:188.08px;
+            }
+            .table1, .table2 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .table1 {
+                margin-top: 150px;
+            }
+            td{
+                padding:5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="table1">
+            <table border="1">
+                <caption>STUDENT FORM</caption>
+                <tr>
+                    <td><b>Name</b></td>
+                    <td><input type="text" id="nameinput"></td>
+                </tr>
+                <tr>
+                    <td><b>Age</b></td>
+                    <td><input type="number" id="ageinput"></td>
+                </tr>
+                <tr>
+                    <td><b>Gender</b></td>
+                    <td>
+                        <input type="radio" name="Gender" id="male">
+                        <label for="male">male</label>
+                        <input type="radio" name="Gender" id="female">
+                        <label for="female">female</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Course</b></td>
+                    <td>
+                        <select id="select">
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>E-Mail</b></td>
+                    <td><input type="text" placeholder="abc@gmail.com" id="emailinput"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button id="btnsave" onclick="save()">Save</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table2">
+            <table border="1" id="t2">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Course</th>
+                    <th>Gender</th>
+                    <th>E-Mail</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+
+        <script>
+            function save() {
+                let name = document.querySelector('#nameinput').value;
+                let age = document.querySelector('#ageinput').value;
+                let gender = document.querySelector('input[name="Gender"]:checked') ? document.querySelector('input[name="Gender"]:checked').nextElementSibling.textContent : '';
+                let course = document.querySelector('#select').value;
+                let email = document.querySelector('#emailinput').value;
+
+                if (name && age && email) {
+                    let table = document.querySelector('#t2');
+                    let row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>${age}</td>
+                        <td>${course}</td>
+                        <td>${gender}</td>
+                        <td>${email}</td>
+                        <td><button onclick="delt(this)">Delete</button></td>
+                    `;
+
+                    table.appendChild(row);
+                } else {
+                    alert("Please fill in all required fields.");
+                }
+            }
+
+            function delt(button) {
+                let row = button.parentElement.parentElement;
+                row.remove();
+            }
+        </script>
+    </body>
+</html>
